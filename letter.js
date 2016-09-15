@@ -7,19 +7,18 @@ function Letter(){
 			return false;
 		}
 	}
-
 }
 
-Letter.prototype.printWord = function(wordString,lettersArr,correctGuess){
-
-	if(!correctGuess && this.isGameOver(this.guessesLeft) == false){
+Letter.prototype.displayWord = function(wordString, lettersArr, correctGuess){
+	//if not a correct guess and not game over yet, then reduce guesses by 1
+	if (!correctGuess && this.isGameOver(this.guessesLeft) == false){
 		this.guessesLeft--;
 	}
-
 	console.log("Guesses remaining: " + this.guessesLeft);
 
+	//displays the current word in current form filled with underscore and guessed letters
 	var currentWordStatus = "";
-	for(var i=0; i< wordString.length; i++){
+	for(var i=0; i < wordString.length; i++){
 
 		if(lettersArr.indexOf(wordString.charAt(i)) !== -1) {
 			currentWordStatus += wordString.charAt(i);
@@ -30,13 +29,14 @@ Letter.prototype.printWord = function(wordString,lettersArr,correctGuess){
 	}
 	console.log(currentWordStatus);
 
-	if(currentWordStatus.indexOf("_") == -1){
+	//check if you win or lose
+	if (currentWordStatus.indexOf("_") == -1) { //if there are no more underscores in the word
 		console.log("***************");
 		console.log("You won!");
 		console.log("***************");
 		process.exit();
 	}
-	if(this.isGameOver(this.guessesLeft) == true){
+	if (this.isGameOver(this.guessesLeft) == true) {
 		console.log("***************");
 		console.log("You lost!");
 		console.log("The word was: " + wordString);
